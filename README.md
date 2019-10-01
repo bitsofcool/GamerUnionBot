@@ -4,7 +4,7 @@ This bot is developed and maintained for the Gamer Union Discord by Razboy20.
 
 ## To Install
 
-To install, first clone the repository, then create a file `.env` in the directory. Then, then .env file should include the following filled out:
+To install, first clone the repository, then create a file `.env` in the directory. Then, the .env file should include the following filled out:
 
 ```pf
 GUILD_ID=""
