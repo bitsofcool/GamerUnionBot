@@ -31,18 +31,15 @@ client.on('ready', () => {
 	});
 });
 
-
 client.on('message', (msg) => {
-	addons.forEach((addon) => {
-		if (addon.message) addon.message(client, msg);
-	});
-
 	//checking if author is a bot
 	if (msg.author.bot == true) {
 		return;
 	}
 
-
+	addons.forEach((addon) => {
+		if (addon.message) addon.message(client, msg);
+	});
 });
 
 client.on('messageUpdate', (oldmsg, newmsg) => {

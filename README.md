@@ -7,10 +7,6 @@ This bot is developed and maintained for the Gamer Union Discord by Razboy20.
 To install, first clone the repository, then create a file `.env` in the directory. Then, the .env file should include the following filled out:
 
 ```pf
-GUILD_ID=""
-GIVE_ROLE_NAME=""
-REMOVE_ROLE_NAME=""
-VERIFY_CHANNEL_NAME=""
 SECRET_TOKEN=""
 ```
 
@@ -22,4 +18,4 @@ Currently, the bot has the ability to support addons, and to create one, first t
 
 ### The list of current addons include
 
-- none
+- Leave Message
