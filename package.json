@@ -10,7 +10,10 @@
 		"type": "git",
 		"url": "git+https://github.com/Razboy20/GamerUnionBot.git"
 	},
-	"keywords": [ "gamerunion", "gamers" ],
+	"keywords": [
+		"gamerunion",
+		"gamers"
+	],
 	"author": "Razboy20",
 	"license": "ISC",
 	"bugs": {
@@ -22,6 +25,9 @@
 		"discord.js": "^11.5.1",
 		"dotenv": "^8.1.0",
 		"nodemon": "^1.19.2",
-		"path": "^0.12.7"
+		"opusscript": "0.0.7",
+		"path": "^0.12.7",
+		"simple-youtube-api": "^5.2.1",
+		"ytdl-core": "^0.29.7"
 	}
 }

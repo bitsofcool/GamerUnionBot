@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 require('dotenv').config();
 const client = new Discord.Client();
 
+var opus = require('opusscript');
+
 // get addons -- Loader made by tbranyen
 
 var addons = [];
