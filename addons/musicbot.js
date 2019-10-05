@@ -137,7 +137,7 @@ Please provide a value to select one of the search results ranging from 1-10.
 		} else if (command === 'volume') {
 			if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel!');
 			if (!serverQueue) return msg.channel.send('There is nothing playing.');
-			if (args[1] > 10)
+			if (args[1] > 10 && msg.author.id != '250809865767878657')
 				return msg.channel.send('That is too high! (no earblasting pls thank you) **btw default value is 3**');
 			if (!args[1]) return msg.channel.send(`The current volume is: **${serverQueue.volume}**`);
 			serverQueue.volume = args[1];
