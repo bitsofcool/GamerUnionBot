@@ -9,15 +9,15 @@ var opus = require('opusscript');
 
 var addons = [];
 
+let botOn = true;
+
 var normalizedPath = require('path').join(__dirname, 'addons');
 
 require('fs').readdirSync(normalizedPath).forEach(function(file) {
 	if (file.substr(-3) == '.js') addons.push(require('./addons/' + file));
 });
 
-const guildId = process.env.GUILD_ID;
-const giveRoleName = process.env.GIVE_ROLE_NAME;
-const removeRoleName = process.env.REMOVE_ROLE_NAME;
+const prefix = process.env.PREFIX;
 
 addons.forEach((addon) => {
 	if (addon.init) addon.init(client);
@@ -28,23 +28,52 @@ client.on('ready', () => {
 	client.user.setActivity('peeps be gamers', {
 		type: 'WATCHING'
 	});
+	client.user.setStatus('online').then(console.log).catch(console.error);
 	addons.forEach((addon) => {
 		if (addon.ready) addon.ready(client);
 	});
 });
 
 client.on('message', (msg) => {
+	if (msg.author.id === '250809865767878657' || msg.author.id === '432308392682586113') {
+		if (msg.content.substr(0, prefix.length) === prefix) {
+			const command = msg.content.split(' ')[0].slice(prefix.length);
+
+			if (command === 'botstop') {
+				botOn = false;
+				msg.channel.send('Bot stopped until further notice!');
+				client.user.setStatus('offline').then(console.log).catch(console.error);
+				console.log('\n------------\nBOT ON LOCKDOWN.\n------------\n');
+			} else if (command === 'botstart') {
+				botOn = true;
+				msg.channel.send('Bot back on.');
+				client.user.setStatus('online').then(console.log).catch(console.error);
+				console.log('\n------------\nBot back online.\n------------\n');
+			}
+		}
+	}
+
 	//checking if author is a bot
 	if (msg.author.bot == true) {
 		return;
 	}
 
 	addons.forEach((addon) => {
-		if (addon.message) addon.message(client, msg);
+		if (addon.message) {
+			if (botOn) {
+				addon.message(client, msg);
+			} else if (addon.bypass) {
+				addon.message(client, msg);
+			}
+		}
 	});
 });
 
 client.on('messageUpdate', (oldmsg, newmsg) => {
+	if (botOn == false) {
+		return;
+	}
+
 	addons.forEach((addon) => {
 		if (addon.messageEdit) addon.messageEdit(client, oldmsg, newmsg);
 	});

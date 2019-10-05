@@ -26,26 +26,26 @@ SOFTWARE.
 Adapted by Razboy20 for the Gamer Union Bot.
 */
 
+const PREFIX = process.env.PREFIX;
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
+
 var exports = module.exports;
 
 require('dotenv').config();
 
+const Util = require('discord.js');
+
+const YouTube = require('simple-youtube-api');
+const ytdl = require('ytdl-core');
+
+const youtube = new YouTube(GOOGLE_API_KEY);
+
+const queue = new Map();
+
 exports.init = function(client) {
 	console.log('Initializing Addon "Music Bot"... ');
 
-	const Util = require('discord.js');
-
-	const PREFIX = '-';
-	const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-
-	const YouTube = require('simple-youtube-api');
-	const ytdl = require('ytdl-core');
-
-	const youtube = new YouTube(GOOGLE_API_KEY);
-
-	const queue = new Map();
-
-	client.on('message', async (msg) => {
+	exports.message = async function(client, msg) {
 		// eslint-disable-line
 		if (msg.author.bot) return undefined;
 		if (!msg.content.startsWith(PREFIX)) return undefined;
@@ -172,7 +172,7 @@ ${serverQueue.songs.map((song) => `**-** ${song.title}`).join('\n')}
 		}
 
 		return undefined;
-	});
+	};
 
 	async function handleVideo(video, msg, voiceChannel, playlist = false) {
 		const serverQueue = queue.get(msg.guild.id);
